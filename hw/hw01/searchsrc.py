@@ -36,12 +36,44 @@ def countPtr(lines):
         p+=line.count('->')
     return p
     
-
+#Counts the number of 0 or 1 lined functions whose curly braces appear on their own lines
 def countSimplefunc(lines):
-    return 100
+    i = 0
+    sf = 0
+    insideFunc = False
+    for line in lines:
+        if line.startswith('{'):
+            insideFunc = True
+            i = 0
+        elif insideFunc:
+            i+=1
+            if i <= 2 and line.startswith('}'):
+                sf+=1
+            elif i > 2:
+                insideFunc = False
     
+    return sf
+    
+#same as previous function, but also counts functions whose beginning curly brace is not necessarily on its own line
 def countSimplefuncec(lines):
-    return 100
+    i = 0
+    sfec = 0
+    insideFunc = False
+    for line in lines:
+        stripped = line.strip()
+        #checks for beginning curly brace which may not be on own line
+        if stripped.endswith('{') and (line[0:1].isalpha() or line.startswith('{')):  
+            insideFunc = True
+            i = 0
+        elif insideFunc:
+            i+=1
+            #ensures that functions are no more than 1 line
+            if i <= 2 and line.startswith('}'):
+                sfec+=1
+            elif i > 2:
+                insideFunc = False
+    return sfec
+    
 
 def main():
     parser = argparse.ArgumentParser()
@@ -56,10 +88,12 @@ def main():
 
     args = parser.parse_args()
 
+    #turns the file into a list of lines
     lines = readFile(args.fileName)
     
     print("file: {} lines: {}".format(args.fileName, len(lines)), end=' ')
 
+    #checks for argument tags before printing wanted information
     if args.include:
         print("include: {}".format(countInclude(lines)), end=' ')
     if args.member:
