@@ -91,19 +91,19 @@ def main():
     #turns the file into a list of lines
     lines = readFile(args.fileName)
     
-    print("file: {} lines: {}".format(args.fileName, len(lines)), end=' ')
+    print("file: {}\nlines: {}".format(args.fileName, len(lines)))
 
     #checks for argument tags before printing wanted information
     if args.include:
-        print("include: {}".format(countInclude(lines)), end=' ')
+        print("include: {}".format(countInclude(lines)))
     if args.member:
-        print("member: {}".format(countMember(lines)), end=' ')
+        print("member: {}".format(countMember(lines)))
     if args.ptr:
-        print("ptr: {}".format(countPtr(lines)), end=' ')
+        print("ptr: {}".format(countPtr(lines)))
     if args.simplefunc:
-        print("simplefunc: {}".format(countSimplefunc(lines)), end=' ')
+        print("simplefunc: {}".format(countSimplefunc(lines)))
     if args.simplefuncec:
-        print("simplefuncec: {}".format(countSimplefuncec(lines)), end=' ')
+        print("simplefuncec: {}".format(countSimplefuncec(lines)))
 
     print("")
 
