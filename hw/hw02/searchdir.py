@@ -1,7 +1,7 @@
 #Ian Setia
 #isetia@nd.edu
 
-import os, subprocess, argparse
+import os, subprocess, argparse, csv
 
 def run_searchsrc_subprocess(file_path, file_name):
     full_path = os.path.join(file_path, file_name)  #combines file path and name
@@ -40,6 +40,14 @@ def dir_reader(dir_path, isQuiet, isRecursive):
 
     return dir_files
 
+def output_csv(file_list, csv_name):
+    with open(csv_name, 'w', newline='') as csvfile:
+        fieldnames = ['path', 'file', 'lines', 'include', 'includelocal', 'memberfuncs', 'onelinefuncs']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',')
+        writer.writeheader()
+        writer.writerows(file_list)
+
+
 def main():
     parser = argparse.ArgumentParser()
 
@@ -47,14 +55,15 @@ def main():
     parser.add_argument('directory', type=str, help='directory to analyze')
     parser.add_argument('-r', action='store_true', help='denotes if directories should be processed recursively (default=false)')
     parser.add_argument('--csv', type=str, default=None, help='denotes to output csv file (default=false)')
-    parser.add_argument('--stats', action='store_true', help='denotes if statistics should be computed across each of teh numeric fields and reported (default=false)')
+    parser.add_argument('--stats', action='store_true', help='denotes if statistics should be computed across each of the numeric fields and reported (default=false)')
     parser.add_argument('--quiet', action='store_true', help='requests output to stay quiet (default=false)')
 
     args = parser.parse_args()
     
-    dir_list = dir_reader(args.directory, isQuiet=args.quiet, isRecursive=args.r);
-
-    print(dir_list)
+    file_list = dir_reader(args.directory, isQuiet=args.quiet, isRecursive=args.r);
+    if args.csv:
+        output_csv(file_list, args.csv)
+    
     
 
 
