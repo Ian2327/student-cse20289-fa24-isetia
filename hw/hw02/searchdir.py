@@ -24,6 +24,20 @@ def run_searchsrc_subprocess(file_path, file_name):
 def print_dict(d):
     print("{}, {}, {} LOC, {} I, {} LI, {} MF, {} OLF".format(d.get('path'), d.get('file'), d.get('lines'), d.get('include'), d.get('includelocal'), d.get('memberfuncs'), d.get('onelinefuncs')))
 
+#reads the .cc files in a given directory and returns a dictionary of dictionsaries
+def dir_reader(dir_path, isQuiet, isRecursive):
+    dir_files = []
+    for dirpath, dirnames, filename in os.walk(dir_path):
+        for files in filename:
+            if(files.endswith(".cc")):
+                result = run_searchsrc_subprocess(dirpath, files);
+                if not isQuiet:
+                    print_dict(result)
+                dir_files.append(result)
+
+        if not isRecursive:
+            break
+    return dir_files
 
 def main():
     parser = argparse.ArgumentParser()
@@ -36,10 +50,10 @@ def main():
     parser.add_argument('--quiet', action='store_true', help='requests output to stay quiet (default=false)')
 
     args = parser.parse_args()
+    
+    dir_reader(args.directory, args.quiet, args.r);
 
-
-    result = run_searchsrc_subprocess('../hw01/', 'PktQueue.cc');
-    print_dict(result)
+    
     
 
 
