@@ -1,7 +1,7 @@
 #Ian Setia
 #isetia@nd.edu
 
-import argparse
+import argparse, re
 
 #Reads a given file and returns a list with the lines in the file
 def readFile(fileName):
@@ -22,11 +22,27 @@ def countInclude(lines):
             i+=1
     return i
 
+#Scans each line in the list of lines for #include "
+def countIncludeLocal(lines):
+    i = 0
+    for line in lines:
+        if line.startswith('#include "'):
+            i+=1
+    return i
+
 #Counts number of :: substrings present in every line, returns sum
 def countMember(lines):
     m = 0
     for line in lines:
         m+=line.count('::')
+    return m
+
+#Count number of lines that start with alphanumeric and contains ::
+def countMemberFuncs(lines):
+    m = 0;
+    for line in lines:
+        if(re.search(r'^[a-zA-Z0-9].*::', line)):
+            m+=1
     return m
 
 #Similar to countMember (searches for -> instead of ::) returns pointer count
@@ -35,6 +51,12 @@ def countPtr(lines):
     for line in lines:
         p+=line.count('->')
     return p
+
+def countOneLineFuncs(lines):
+    f = 0
+    for line in lines:
+        #FINISHME
+    return -1
     
 #Counts the number of 0 or 1 lined functions whose curly braces appear on their own lines
 def countSimplefunc(lines):
@@ -81,25 +103,36 @@ def main():
     #adds argument tags to identify from command line
     parser.add_argument('fileName', type=str, help='name of file to scan')
     parser.add_argument('--include', action='store_true', help='counts number of include statements in code')
+    parser.add_argument('--includelocal', action='store_true', help='counts number of local include statements in code')
     parser.add_argument('--member', action='store_true', help='')
-    parser.add_argument('--ptr', action='store_true', help='')
-    parser.add_argument('--simplefunc', action='store_true', help='')
-    parser.add_argument('--simplefuncec', action='store_true', help='')
+    parser.add_argument('--memberfuncs', action='store_true', help='counts number of member functions')
+    parser.add_argument('--ptr', action='store_true', help='count number of -> pointers')
+    parser.add_argument('--onelinefuncs', action='store_true', help='counts number of one line functions')
+    parser.add_argument('--simplefunc', action='store_true', help='counts number of simple functions')
+    parser.add_argument('--simplefuncec', action='store_true', help='counts number of simple functions whose \'{\' can be on same line as function')
 
     args = parser.parse_args()
 
     #turns the file into a list of lines
     lines = readFile(args.fileName)
-    
-    print("file: {}\nlines: {}".format(args.fileName, len(lines)))
+    match = re.search(r'^(.*[\\/])([^\\/]+)$', args.fileName)
+    path, file_name = match.groups()
+    print("path: {}".format(path)) 
+    print("file: {}\nlines: {}".format(file_name, len(lines)))
 
     #checks for argument tags before printing wanted information
     if args.include:
         print("include: {}".format(countInclude(lines)))
+    if args.includelocal:
+        print("includelocal: {}".format(countIncludeLocal(lines)))
+    if args.memberfuncs:
+        print("memberfuncs: {}".format(countMemberFuncs(lines)))
     if args.member:
         print("member: {}".format(countMember(lines)))
     if args.ptr:
         print("ptr: {}".format(countPtr(lines)))
+    if args.onelinefuncs:
+        print("onelinefuncs: {}".format(countOneLineFuncs(lines)))
     if args.simplefunc:
         print("simplefunc: {}".format(countSimplefunc(lines)))
     if args.simplefuncec:
