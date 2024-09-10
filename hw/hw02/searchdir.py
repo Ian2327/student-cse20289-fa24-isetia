@@ -33,10 +33,11 @@ def dir_reader(dir_path, isQuiet, isRecursive):
                 result = run_searchsrc_subprocess(dirpath, files);
                 if not isQuiet:
                     print_dict(result)
-                dir_files.append(result)
 
+                dir_files.append(result)
         if not isRecursive:
             break
+
     return dir_files
 
 def main():
@@ -51,9 +52,9 @@ def main():
 
     args = parser.parse_args()
     
-    dir_reader(args.directory, args.quiet, args.r);
+    dir_list = dir_reader(args.directory, isQuiet=args.quiet, isRecursive=args.r);
 
-    
+    print(dir_list)
     
 
 
