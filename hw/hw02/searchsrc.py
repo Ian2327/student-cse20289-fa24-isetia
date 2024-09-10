@@ -54,9 +54,19 @@ def countPtr(lines):
 
 def countOneLineFuncs(lines):
     f = 0
+    check = 0
     for line in lines:
+        if(re.search(r'^[a-zA-Z0-9].*{$', line)):
+            check = 1
+        elif(check == 2 and re.search(r'^}$', line)):
+            check = 0
+            f += 1
+        elif(check == 1):
+            check = 2
+        else:
+            check = 0
         #FINISHME
-    return -1
+    return f
     
 #Counts the number of 0 or 1 lined functions whose curly braces appear on their own lines
 def countSimplefunc(lines):
