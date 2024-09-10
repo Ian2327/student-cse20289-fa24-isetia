@@ -1,7 +1,7 @@
 #Ian Setia
 #isetia@nd.edu
 
-import os, subprocess, argparse, csv
+import os, subprocess, argparse, csv, statistics
 
 def run_searchsrc_subprocess(file_path, file_name):
     full_path = os.path.join(file_path, file_name)  #combines file path and name
@@ -40,6 +40,7 @@ def dir_reader(dir_path, isQuiet, isRecursive):
 
     return dir_files
 
+#returns a csv file with the name csv_name with all data from list of files inputted
 def output_csv(file_list, csv_name):
     with open(csv_name, 'w', newline='') as csvfile:
         fieldnames = ['path', 'file', 'lines', 'include', 'includelocal', 'memberfuncs', 'onelinefuncs']
@@ -47,6 +48,33 @@ def output_csv(file_list, csv_name):
         writer.writeheader()
         writer.writerows(file_list)
 
+#computes statistics of list of files
+def stats(file_list):
+    fields = ['lines', 'include', 'includelocal', 'memberfuncs', 'onelinefuncs']
+    #creates a dictionary where each field is initially assigned an empty list
+    stats = {field: [] for field in fields}
+    for files in file_list:
+        for field in fields:
+            if field in files:
+                files[field] = int(files[field])
+                stats[field].append(files[field])
+    print("Field, Min, MinFile, Max, MaxFile, Mean, Median, StdDev")
+    for field in fields:
+        if len(stats[field]) > 1:
+            min_val = min(stats[field])
+            max_val = max(stats[field])
+            mean_val = statistics.mean(stats[field])
+            median_val = statistics.median(stats[field])
+            stdev_val = statistics.stdev(stats[field])
+            min_file = file_list[stats[field].index(min_val)]['file']
+            max_file = file_list[stats[field].index(max_val)]['file']
+            #print("{}, {}".format(min_val, max_val))
+            print("{}, {}, {}, {}, {}, {}, {}, {}".format(field, min_val, min_file, max_val, max_file, mean_val, median_val, stdev_val))
+        elif len(stats[field]) == 1:
+            min_val = max_val = mean_val = median_val = stats[field][0];
+            min_file = max_file = file_list[stats[field].index(min_val)]['file']
+            stdev_val = 0;
+            print("{}, {}, {}, {}, {}, {}, {}, {}".format(field, min_val, min_file, max_val, max_file, mean_val, median_val, stdev_val))
 
 def main():
     parser = argparse.ArgumentParser()
@@ -61,9 +89,11 @@ def main():
     args = parser.parse_args()
     
     file_list = dir_reader(args.directory, isQuiet=args.quiet, isRecursive=args.r);
+
     if args.csv:
         output_csv(file_list, args.csv)
-    
+    if args.stats:
+        stats(file_list)
     
 
 
