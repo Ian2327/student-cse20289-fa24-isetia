@@ -26,6 +26,9 @@ def print_dict(d):
 
 #reads the .cc files in a given directory and returns a dictionary of dictionsaries
 def dir_reader(dir_path, isQuiet, isRecursive):
+    if not os.path.isdir(dir_path):
+        raise FileNotFoundError("The directory {} does not exist.".format(dir_path))
+
     dir_files = []
     for dirpath, dirnames, filename in os.walk(dir_path):
         for files in filename:
@@ -37,11 +40,19 @@ def dir_reader(dir_path, isQuiet, isRecursive):
                 dir_files.append(result)
         if not isRecursive:
             break
+    if not dir_files:
+        print("Warning: there are no source files in the given directory")
 
     return dir_files
 
 #returns a csv file with the name csv_name with all data from list of files inputted
 def output_csv(file_list, csv_name):
+    if os.path.exists(csv_name):
+        user_input = input("The file {} already exists in this directory. Overwrite? (yes/no): ").strip().lower()
+        if(user_input == 'no'):
+            print("Output to CSV has been cancelled")
+            return
+    
     with open(csv_name, 'w', newline='') as csvfile:
         fieldnames = ['path', 'file', 'lines', 'include', 'includelocal', 'memberfuncs', 'onelinefuncs']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',')
@@ -87,8 +98,16 @@ def main():
     parser.add_argument('--quiet', action='store_true', help='requests output to stay quiet (default=false)')
 
     args = parser.parse_args()
+
+    if not args.directory:
+        print("Error: No directory given")
+        return 
     
-    file_list = dir_reader(args.directory, isQuiet=args.quiet, isRecursive=args.r);
+    try: 
+        file_list = dir_reader(args.directory, isQuiet=args.quiet, isRecursive=args.r);
+    except FileNotFoundError as e:
+        print(e)
+        return
 
     if args.csv:
         output_csv(file_list, args.csv)
