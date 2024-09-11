@@ -68,6 +68,7 @@ def stats(file_list):
         for field in fields:
             if field in files:
                 files[field] = int(files[field])
+                #appends the data to the corresponding list, based on field
                 stats[field].append(files[field])
     print("Field, Min, MinFile, Max, MaxFile, Mean, Median, StdDev")
     for field in fields:
@@ -79,7 +80,6 @@ def stats(file_list):
             stdev_val = statistics.stdev(stats[field])
             min_file = file_list[stats[field].index(min_val)]['file']
             max_file = file_list[stats[field].index(max_val)]['file']
-            #print("{}, {}".format(min_val, max_val))
             print("{}, {}, {}, {}, {}, {}, {}, {}".format(field, min_val, min_file, max_val, max_file, mean_val, median_val, stdev_val))
         elif len(stats[field]) == 1:
             min_val = max_val = mean_val = median_val = stats[field][0];

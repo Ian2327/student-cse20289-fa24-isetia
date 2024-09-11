@@ -41,6 +41,7 @@ def countMember(lines):
 def countMemberFuncs(lines):
     m = 0;
     for line in lines:
+        #search for alphanumeric start with :: being present somewhere in the line
         if(re.search(r'^[a-zA-Z0-9].*::', line)):
             m+=1
     return m
@@ -57,12 +58,14 @@ def countOneLineFuncs(lines):
     f = 0
     check = 0
     for line in lines:
+        #search for alphanumeric beginning and { at end if there is one
         if(re.search(r'^[a-zA-Z0-9].*[{]?$', line)):
             check = 1
         elif(check == 2 and re.search(r'^}$', line)):
             check = 0
             f += 1
         elif(check == 1):
+            #search for { at start of line in case it wasn't on previous function line
             if re.search(r'^{$', line):
                 check = 1
             else:
@@ -128,6 +131,7 @@ def main():
 
     #turns the file into a list of lines
     lines = readFile(args.fileName)
+    #searches for the final / or \ in the line, then separates the file name into group 2, getting anything after the final / or \
     match = re.search(r'^(.*[\\/])([^\\/]+)$', args.fileName)
     path, file_name = match.groups()
     print("path: {}".format(path)) 
