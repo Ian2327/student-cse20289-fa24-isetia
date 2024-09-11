@@ -57,13 +57,16 @@ def countOneLineFuncs(lines):
     f = 0
     check = 0
     for line in lines:
-        if(re.search(r'^[a-zA-Z0-9].*{$', line)):
+        if(re.search(r'^[a-zA-Z0-9].*[{]?$', line)):
             check = 1
         elif(check == 2 and re.search(r'^}$', line)):
             check = 0
             f += 1
         elif(check == 1):
-            check = 2
+            if re.search(r'^{$', line):
+                check = 1
+            else:
+                check = 2
         else:
             check = 0
     return f
