@@ -52,6 +52,7 @@ def countPtr(lines):
         p+=line.count('->')
     return p
 
+#counts number of one line functions using regex
 def countOneLineFuncs(lines):
     f = 0
     check = 0
@@ -65,7 +66,6 @@ def countOneLineFuncs(lines):
             check = 2
         else:
             check = 0
-        #FINISHME
     return f
     
 #Counts the number of 0 or 1 lined functions whose curly braces appear on their own lines
