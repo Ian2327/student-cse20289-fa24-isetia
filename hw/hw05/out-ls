@@ -1,0 +1,13 @@
+total 184
+-rw------- 1 isetia notre-dame   108 Oct  8 11:19 host-ip-mac.csv
+-rw------- 1 isetia notre-dame     7 Oct  8 09:25 NETID
+-rw------- 1 isetia notre-dame 80171 Oct  8 09:26 Out-Dump.txt
+-rw------- 1 isetia notre-dame     0 Oct  8 11:21 out-ls
+-rw------- 1 isetia notre-dame  3714 Oct  8 10:55 output-endFile.txt
+-rw------- 1 isetia notre-dame    58 Oct  8 11:01 output-reverse.txt
+-rw------- 1 isetia notre-dame  1853 Oct  8 09:27 output-startFile.txt
+-rw------- 1 isetia notre-dame   464 Oct  8 10:58 output-xxd.txt
+-rw------- 1 isetia notre-dame    24 Oct  8 09:24 README.md
+-rw------- 1 isetia notre-dame   188 Oct  8 11:11 revND.txt
+-rw------- 1 isetia notre-dame 67592 Oct  8 10:56 TestSmall.pcap
+-rw------- 1 isetia notre-dame     4 Oct  8 09:27 theLines.txt
