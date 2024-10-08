@@ -1,0 +1,19 @@
+Python 3.6.8
+Python 3.6.8
+total 56
+-rw-r--r-- 1 isetia notre-dame 2227 Sep 23 13:46 activate
+-rw-r--r-- 1 isetia notre-dame 1283 Sep 23 13:46 activate.csh
+-rw-r--r-- 1 isetia notre-dame 2447 Sep 23 13:46 activate.fish
+-rwxr-xr-x 1 isetia notre-dame  234 Oct  3 16:55 docx2pdf
+-rwxr-xr-x 1 isetia notre-dame  263 Sep 23 13:45 easy_install
+-rwxr-xr-x 1 isetia notre-dame  263 Sep 23 13:45 easy_install-3.6
+-rwxr-xr-x 1 isetia notre-dame  249 Sep 23 13:49 f2py
+-rwxr-xr-x 1 isetia notre-dame  249 Sep 23 13:49 f2py3
+-rwxr-xr-x 1 isetia notre-dame  249 Sep 23 13:49 f2py3.6
+-rwxr-xr-x 1 isetia notre-dame  273 Sep 23 18:18 normalizer
+-rwxr-xr-x 1 isetia notre-dame  254 Sep 23 13:55 pip
+-rwxr-xr-x 1 isetia notre-dame  254 Sep 23 13:55 pip3
+-rwxr-xr-x 1 isetia notre-dame  254 Sep 23 13:55 pip3.6
+lrwxrwxrwx 1 isetia notre-dame    7 Sep 23 13:45 python -> python3
+lrwxrwxrwx 1 isetia notre-dame   16 Sep 23 13:45 python3 -> /usr/bin/python3
+-rwxr-xr-x 1 isetia notre-dame  236 Oct  3 16:55 tqdm

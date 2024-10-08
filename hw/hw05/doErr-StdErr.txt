@@ -1,0 +1,6 @@
+This will not Error.
+Traceback (most recent call last):
+  File "/escnfs/home/isetia/repos/student-cse20289-fa24-isetia/hw/hw05/doErr.py", line 2, in <module>
+    print("This will Error" + 10)
+          ~~~~~~~~~~~~~~~~~~^~~~
+TypeError: can only concatenate str (not "int") to str
