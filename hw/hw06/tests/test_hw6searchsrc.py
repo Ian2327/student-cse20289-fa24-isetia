@@ -105,5 +105,27 @@ class TestHW6SearchSrc(unittest.TestCase):
         self.assertRegex(stdout, r'path: /escnfs/home/isetia/repos/student-cse20289-fa24-isetia/hw/hw06/tests/data/\nfile: fmnc_manager.cc\nlines: \d+')
 
     def test_no_specified_file(self):
-        pass
+        stdout, stderr = self.run_hw6searchsrc()
+        self.assertIn("error", stderr.lower())
+    
+    def test_nonexistent_file(self):
+        stdout, stderr = self.run_hw6searchsrc("nonexistentFile.cc")
+        self.assertIn("error", stderr.lower())
         
+    def test_not_cc_file(self): #if file exists, code will run normally regardless of type, if file does not exist, it will error regardless of type
+        stdout, stderr = self.run_hw6searchsrc("file.txt")
+        self.assertIn("error", stderr.lower())
+        stdout, stderr = self.run_hw6searchsrc("./data/file.txt")
+        self.assertRegex(stdout, r'path: ./data/\nfile: file.txt\nlines: \d+')
+
+    
+    def test_file_is_directory(self):
+        stdout, stderr = self.run_hw6searchsrc("./data/")
+        self.assertIn("error", stderr.lower())
+
+    def test_invalid_argument(self):
+        stdout, stderr = self.run_hw6searchsrc("./data/fmnc_manager.cc", '--invalidflag')
+        self.assertIn("error", stderr.lower())
+
+if __name__ == "__main__":
+    unittest.main()
