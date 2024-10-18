@@ -1,3 +1,5 @@
+#Ian Setia
+#isetia@nd.edu
 import unittest
 import sys, os, subprocess, re
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))

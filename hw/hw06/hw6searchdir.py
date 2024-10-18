@@ -6,7 +6,7 @@ import os, subprocess, argparse, csv, statistics
 def run_searchsrc_subprocess(file_path, file_name):
     full_path = os.path.join(file_path, file_name)  #combines file path and name
     #command to be run by subprocess
-    command = ['python3', 'searchsrc.py', full_path, '--include', '--includelocal', '--memberfuncs', '--onelinefuncs']
+    command = ['python3', '/escnfs/home/isetia/repos/student-cse20289-fa24-isetia/hw/hw06/hw6searchsrc.py', full_path, '--include', '--includelocal', '--memberfuncs', '--onelinefuncs']
     result = subprocess.run(command, stdout=subprocess.PIPE)
     
     #converts to string
