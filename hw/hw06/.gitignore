@@ -1,4 +1,3 @@
-*.cc
 __pycache__/
 *.png
 *.docx
