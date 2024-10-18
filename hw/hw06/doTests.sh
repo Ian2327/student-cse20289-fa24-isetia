@@ -8,7 +8,7 @@ echo "  Saving the results in timestamped files: ${log}"
 
 cd tests/
 python3 -m unittest discover &> "../$log"
-cd -
+cd - > /dev/null
 
 if grep -q "FAILED" "${log}"; then
 	echo "  Some test(s) failed. Displaying log:"
@@ -16,4 +16,6 @@ if grep -q "FAILED" "${log}"; then
 else
 	echo "  All tests passed successfully!"
 fi
+
+echo "  Log is stored at: $(find -iname ${log})"
 
