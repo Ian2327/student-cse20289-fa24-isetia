@@ -13,16 +13,16 @@ Task 6:
 	- line 28: added " to search pattern to search for local includes rather than just includes
 	- line 37: removed " from search pattern to search for all includes
 - Failed Test Cases (hw6searchsrc):
-	test_deeper_recursive_dir
-	test_non_recursive
-	test_recursive
-	test_countInclude
-	test_countIncludeLocal
+	test_deeper_recursive_dir,
+	test_non_recursive,
+	test_recursive,
+	test_countInclude,
+	test_countIncludeLocal,
 	test_countLines 
 
 - Bugs (hw6searchdir):
 	- line 26: added extra comma to output formatting 
 - Failed Test Cases (hw6searchdir):
-	test_deeper_recursive_dir
-	test_non_recursive
+	test_deeper_recursive_dir,
+	test_non_recursive,
 	test_recursive
