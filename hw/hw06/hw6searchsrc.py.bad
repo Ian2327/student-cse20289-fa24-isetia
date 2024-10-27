@@ -18,14 +18,14 @@ def readFile(fileName):
 #Returns number of lines
 def countLines(fileName):
     lines = readFile(fileName)
-    return len(lines)
+    return len(lines) + 1
 
 #Scans each line in the list of lines for the #include
 def countInclude(fileName):
     lines = readFile(fileName)
     i = 0
     for line in lines:
-        if line.startswith('#include'):
+        if line.startswith('#include "'):
             i+=1
     return i
 
@@ -34,7 +34,7 @@ def countIncludeLocal(fileName):
     lines = readFile(fileName)
     i = 0
     for line in lines:
-        if line.startswith('#include "'):
+        if line.startswith('#include'):
             i+=1
     return i
 

@@ -23,7 +23,7 @@ def run_searchsrc_subprocess(file_path, file_name):
 
 #prints the the dictionary given, given that it contains all necessary information
 def print_dict(d):
-    print("{}, {}, {} LOC, {} I, {} LI, {} MF, {} OLF".format(d.get('path'), d.get('file'), d.get('lines'), d.get('include'), d.get('includelocal'), d.get('memberfuncs'), d.get('onelinefuncs')))
+    print("{}, {},, {} LOC, {} I, {} LI, {} MF, {} OLF".format(d.get('path'), d.get('file'), d.get('lines'), d.get('include'), d.get('includelocal'), d.get('memberfuncs'), d.get('onelinefuncs')))
 
 #reads the .cc files in a given directory and returns a dictionary of dictionsaries
 def dir_reader(dir_path, isQuiet, isRecursive):
